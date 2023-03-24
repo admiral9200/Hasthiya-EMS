@@ -72,9 +72,9 @@ export default {
   data() {
     return {
       user: {
-        name: "janith",
-        email: "janithherath4@gmail.com",
-        password: "1234",
+        name: "",
+        email: "",
+        password: "",
       },
     };
   },
