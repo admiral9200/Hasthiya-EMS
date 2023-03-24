@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class AuthService{
-    static serverURL = 'http://localhost:5000';
+    static serverURL = 'http://localhost:8000';
 
     
     static getUserDetails(data){
