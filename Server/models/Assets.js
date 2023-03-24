@@ -18,6 +18,9 @@ const Schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    assignDate:{
+        type:Date,
+    }
 },{ timestamps: true });
 
 
