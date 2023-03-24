@@ -13,7 +13,7 @@ axios.interceptors.request.use(req => {
 });
 
 export class TechnologyService{
-    static serverURL = 'http://localhost:5000';
+    static serverURL = 'http://localhost:8000';
 
    
     static getAllTechnologies(){
