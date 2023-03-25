@@ -36,6 +36,15 @@ const Schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Technology'
     }],
+    dob: {
+        type: Date,
+    },
+    address: {
+        type: String,
+    },
+    nic: {
+        type: String,
+    },
 },{ timestamps: true });
 
 
