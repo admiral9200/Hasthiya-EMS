@@ -71,7 +71,7 @@ export default {
     },
     methods: {
         submit: async function () {
-            this.$store.dispatch("updateUser", { _id:this.userState.user._id, name:this.user.name,imageurl:this.user.imageurl});
+            this.$store.dispatch("updateLoggedUser", { _id:this.userState.user._id, name:this.user.name,imageurl:this.user.imageurl});
             router.go(-1)
         },
         setdata(){
