@@ -4,6 +4,8 @@ import designationModule from './modules/designation.module'
 import technologyModule from './modules/technology.module'
 import assetsTypeModule from './modules/assetsType.module'
 import assetsModule from './modules/assets.module'
+import salaryModule from './modules/salary.module'
+import leaveModule from './modules/leave.module'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -15,6 +17,8 @@ export default createStore({
     technologyModule,
     assetsTypeModule,
     assetsModule,
+    salaryModule,
+    leaveModule,
   },
   strict: debug,
   plugins: debug ? [createLogger()] : []
