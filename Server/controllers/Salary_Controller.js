@@ -15,15 +15,14 @@ exports.create = (async (req, res) => {
         console.log(user);
         const basic = user.salary;
         const employee = user._id;
-        const newSalary = {employee, basic, usDollerValue, salaryDate};
-        console.log(newSalary);
-        new salary(newSalary).save((err, doc) => {
+        const designation = user.designation;
+        const newSalary = {employee, basic, usDollerValue, salaryDate,designation};
+        new salary(newSalary).save((err) => {
             if(err){
                 ResponseService.generalResponse(err, res, "salary list not created successfully");
             }
         });
     });
-    res.
     ResponseService.generalResponse(null, res, "salary list created successfully");
 });
 
@@ -40,6 +39,7 @@ exports.getById = (async (req, res) => {
         ResponseService.generalPayloadResponse(err, doc, res);
     })
     .populate('employee', 'name email imageurl')
+    .populate('designation', 'name')
 });
 
 // Delete
@@ -52,48 +52,32 @@ exports.delete = (async (req, res) => {
 //get all 
 exports.getAll = async function (req, res) {
 
-    // Pagination parameters
-    const limit = req.query.limit ? parseInt(req.query.limit) : 10;
-    const page = req.query.page ? parseInt(req.query.page) - 1 : 0;
-
-
-    const totalPages = Math.ceil(await salary.countDocuments() / limit);
-
     salary.find( (err, doc) => {
         const newPayload = {
             docs: doc,
-            totalPages: totalPages,
         }
         ResponseService.generalPayloadResponse(err, newPayload, res);
     })
-        .sort({ createdAt: -1 })
+        .sort({ salaryDate: -1 })
         .populate('employee', 'name email imageurl')
-        .skip(page * limit)
-        .limit(limit);
+        .populate('designation', 'name')
+        
 }
 
 //get all by date
 exports.getBydate = async function (req, res) {
     const date = req.params.date;
 
-    // Pagination parameters
-    const limit = req.query.limit ? parseInt(req.query.limit) : 10;
-    const page = req.query.page ? parseInt(req.query.page) - 1 : 0;
-
-
-    const totalPages = Math.ceil(await salary.countDocuments({ salaryDate: date }) / limit);
 
     salary.find({ salaryDate: date}, (err, doc) => {
         const newPayload = {
             docs: doc,
-            totalPages: totalPages,
         }
         ResponseService.generalPayloadResponse(err, newPayload, res);
     })
-        .sort({ createdAt: -1 })
+        .sort({ salaryDate: -1 })
         .populate('employee', 'name email imageurl')
-        .skip(page * limit)
-        .limit(limit);
+        .populate('designation', 'name')
 }
 
 //get all by employee
@@ -101,7 +85,7 @@ exports.getByUserId = async function (req, res) {
     const id = req.params.id;
 
     // Pagination parameters
-    const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+    const limit = req.query.limit ? parseInt(req.query.limit) : 1;
     const page = req.query.page ? parseInt(req.query.page) - 1 : 0;
 
 
@@ -114,8 +98,9 @@ exports.getByUserId = async function (req, res) {
         }
         ResponseService.generalPayloadResponse(err, newPayload, res);
     })
-        .sort({ createdAt: -1 })
+        .sort({ salaryDate: -1 })
         .populate('employee', 'name email imageurl')
+        .populate('designation', 'name')
         .skip(page * limit)
         .limit(limit);
 }
