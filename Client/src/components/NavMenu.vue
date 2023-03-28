@@ -85,8 +85,16 @@
     </div>
 
     <!-- mobile menu -->
-    <div v-if="menu" class="mobile-menu md:hidden">
+    <div v-if="menu && userState.user && userState.user.role !== 'admin'" class="mobile-menu md:hidden">
       <router-link v-for="item in navigation" :key="item.name" :to="item.href" :class="[
+        item.isactive
+          ? 'bg-gray-900 text-white'
+          : 'block text-sm font-bold px-2 py-4 hover:bg-green-500 transition duration-300',
+        'px-3 py-2 rounded-md text-sm font-medium',
+      ]">{{ item.name }}</router-link>
+    </div>
+    <div v-if="menu && userState.user && userState.user.role === 'admin'" class="mobile-menu md:hidden">
+      <router-link v-for="item in adminNavigation" :key="item.name" :to="item.href" :class="[
         item.isactive
           ? 'bg-gray-900 text-white'
           : 'block text-sm font-bold px-2 py-4 hover:bg-green-500 transition duration-300',
@@ -108,15 +116,15 @@ export default defineComponent({
       navigation: [
         { name: "Home", href: "/" },
         { name: "Assets", href: "/userAssets" },
-        { name: "Leaves", href: "/leaves" },
-        { name: "Salary", href: "/usersalary" },
+        { name: "Leaves", href: "/userLeaves" },
+        { name: "Salary", href: "/userSalary" },
       ],
       adminNavigation: [
         { name: "Home", href: "/" },
         { name: "Assets", href: "/userAssets" },
-        { name: "Leaves", href: "/leaves" },
-        { name: "Salary", href: "/usersalary" },
-        { name: "Admin panel", href: "/designation" },
+        { name: "Leaves", href: "/userLeaves" },
+        { name: "Salary", href: "/userSalary" },
+        { name: "Admin panel", href: "/user" },
       ],
       menu: false,
     }
