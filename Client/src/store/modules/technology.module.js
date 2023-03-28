@@ -39,7 +39,7 @@ const mutations = {
 const actions = {
     getAllTechnology: async function ({ commit }) {
         try {
-            let response = await TechnologyService.getAllTechnologies();
+            let response = await TechnologyService.getAll();
             commit("SET_TECHNOLOGIES", { technologies: response.data.data });
             commit("SET_LOADING", false);
         } catch (error) {
@@ -51,7 +51,7 @@ const actions = {
         try {
             await TechnologyService.delete(id);
             NotificationHelper.notificationhandler('Technology deleted successfully!')
-            store.dispatch("getAll")
+            store.dispatch('getAllTechnology')
         } catch (error) {
             console.log(error)
             commit("SET_ERROR", { error: error })
@@ -59,9 +59,9 @@ const actions = {
     },
     updateTechnology: async function ({ commit }, data) {
         try {
-            await TechnologyService.updateCategory(data, data._id);            
+            await TechnologyService.update(data, data._id);            
             NotificationHelper.notificationhandler('Technology updated successfully!')
-            store.dispatch("getAll")
+            store.dispatch('getAllTechnology')
         } catch (error) {
             console.log(error)
             commit("SET_ERROR", { error: error })
@@ -83,7 +83,7 @@ const actions = {
             commit("SET_LOADING", true);
             await TechnologyService.create(data);
             NotificationHelper.notificationhandler('Technology created successfully!')
-            store.dispatch('getAll')
+            store.dispatch('getAllTechnology')
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
