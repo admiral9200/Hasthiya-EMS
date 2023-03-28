@@ -12,47 +12,47 @@ axios.interceptors.request.use(req => {
   return Promise.reject(error);
 });
 
-export class SalaryService{
+export class LeaveService{
 
    
-    static getAll(page){
-        let dataURL = `${serverURL}/salary?page=${page}`;
+    static getAll(){
+        let dataURL = `${serverURL}/leaves`;
+        return axios.get(dataURL,{headers: {
+            'Content-Type': 'application/json'
+        }});
+    }
+    static getAllByReportPerson(id,page){
+        let dataURL = `${serverURL}/leaves/reportPerson/${id}?page=${page}`;
+        return axios.get(dataURL,{headers: {
+            'Content-Type': 'application/json'
+        }});
+    }
+    static getAllByEmployee(id,page){
+        let dataURL = `${serverURL}/leaves/user/${id}?page=${page}`;
         return axios.get(dataURL,{headers: {
             'Content-Type': 'application/json'
         }});
     }
     static getById(id){
-        let dataURL = `${serverURL}/salary/${id}`;
-        return axios.get(dataURL,{headers: {
-            'Content-Type': 'application/json'
-        }});
-    }
-    static getByAssignPerson(data){
-        let dataURL = `${serverURL}/salary/user/${data.id}?page=${data.page}`;
-        return axios.get(dataURL,{headers: {
-            'Content-Type': 'application/json'
-        }});
-    }
-    static getByDate(date){
-        let dataURL = `${serverURL}/salary/date/${date}`;
+        let dataURL = `${serverURL}/leaves/${id}`;
         return axios.get(dataURL,{headers: {
             'Content-Type': 'application/json'
         }});
     }
     static create(data){
-        let dataURL = `${serverURL}/salary/`;
+        let dataURL = `${serverURL}/leaves/`;
         return axios.post(dataURL,data,{headers: {
             'Content-Type': 'application/json'
         }});
     }
     static update(data,id){
-        let dataURL = `${serverURL}/salary/${id}`;
+        let dataURL = `${serverURL}/leaves/${id}`;
         return axios.put(dataURL,data,{headers: {
             'Content-Type': 'application/json'
         }});
     }
     static delete(id){
-        let dataURL = `${serverURL}/salary/${id}`;
+        let dataURL = `${serverURL}/leaves/${id}`;
         return axios.delete(dataURL,{headers: {
             'Content-Type': 'application/json'
         }});
