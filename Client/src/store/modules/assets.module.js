@@ -9,6 +9,7 @@ const state = () => ({
         isLoading: false,
         asset: null,
         totalPages: 0,
+        assetCount:0,
     },
 })
 
@@ -26,7 +27,8 @@ const mutations = {
     },
     SET_ASSETS: function (state, payload) {
         state.assetList.assets = payload.assets;
-        state.assetList.totalPages = payload.totalPages;
+        state.assetList.totalPages = payload.totalPages;        
+        state.assetList.assetCount = payload.assetCount;
     },
     SET_ASSET: function (state, payload) {
         state.assetList.asset = payload.asset;
@@ -40,11 +42,11 @@ const actions = {
             commit("SET_LOADING", true);
             let response = await AssetsService.getAll(payload);
             if (response.data.status == 200) {
-                console.log(response.data.data.docs)
+                console.log("assets"+response.data.data.docs)
             } else {
                 NotificationHelper.errorhandler(response.data.msg)
             }
-            commit("SET_ASSETS", { assets: response.data.data.docs, totalPages: response.data.data.totalPages });
+            commit("SET_ASSETS", { assets: response.data.data.docs, totalPages: response.data.data.totalPages,assetCount:response.data.data.assetsCount });
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
