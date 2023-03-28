@@ -1,7 +1,7 @@
 import  axios  from "axios";
 
 export class UserService{
-    static serverURL = 'http://localhost:5000';
+    static serverURL = 'http://localhost:8000';
 
     static getAllUsers(page){
         let dataURL = `${this.serverURL}/users?page=${page}`;

@@ -12,36 +12,36 @@ axios.interceptors.request.use(req => {
   return Promise.reject(error);
 });
 
-export class TechnologyService{
+export class AssetsTypeService{
     static serverURL = 'http://localhost:8000';
 
    
-    static getAllTechnologies(){
-        let dataURL = `${this.serverURL}/technology`;
+    static getAll(){
+        let dataURL = `${this.serverURL}/assetsTypes`;
         return axios.get(dataURL,{headers: {
             'Content-Type': 'application/json'
         }});
     }
-    static getTechnologyById(id){
-        let dataURL = `${this.serverURL}/technology/${id}`;
+    static getById(id){
+        let dataURL = `${this.serverURL}/assetsTypes/${id}`;
         return axios.get(dataURL,{headers: {
             'Content-Type': 'application/json'
         }});
     }
-    static createTechnology(data){
-        let dataURL = `${this.serverURL}/technology/`;
+    static create(data){
+        let dataURL = `${this.serverURL}/assetsTypes/`;
         return axios.post(dataURL,data,{headers: {
             'Content-Type': 'application/json'
         }});
     }
-    static updateTechnology(data,id){
-        let dataURL = `${this.serverURL}/technology/${id}`;
+    static update(data,id){
+        let dataURL = `${this.serverURL}/assetsTypes/${id}`;
         return axios.put(dataURL,data,{headers: {
             'Content-Type': 'application/json'
         }});
     }
-    static deleteTechnology(id){
-        let dataURL = `${this.serverURL}/technology/${id}`;
+    static delete(id){
+        let dataURL = `${this.serverURL}/assetsTypes/${id}`;
         return axios.delete(dataURL,{headers: {
             'Content-Type': 'application/json'
         }});

@@ -12,36 +12,48 @@ axios.interceptors.request.use(req => {
   return Promise.reject(error);
 });
 
-export class TechnologyService{
+export class AssetsService{
     static serverURL = 'http://localhost:8000';
 
    
-    static getAllTechnologies(){
-        let dataURL = `${this.serverURL}/technology`;
+    static getAll(){
+        let dataURL = `${this.serverURL}/assets`;
         return axios.get(dataURL,{headers: {
             'Content-Type': 'application/json'
         }});
     }
-    static getTechnologyById(id){
-        let dataURL = `${this.serverURL}/technology/${id}`;
+    static getById(id){
+        let dataURL = `${this.serverURL}/assets/${id}`;
         return axios.get(dataURL,{headers: {
             'Content-Type': 'application/json'
         }});
     }
-    static createTechnology(data){
-        let dataURL = `${this.serverURL}/technology/`;
+    static getByAssignPerson(id){
+        let dataURL = `${this.serverURL}/assets/user/${id}`;
+        return axios.get(dataURL,{headers: {
+            'Content-Type': 'application/json'
+        }});
+    }
+    static getByType(id){
+        let dataURL = `${this.serverURL}/assets/type/${id}`;
+        return axios.get(dataURL,{headers: {
+            'Content-Type': 'application/json'
+        }});
+    }
+    static create(data){
+        let dataURL = `${this.serverURL}/assets/`;
         return axios.post(dataURL,data,{headers: {
             'Content-Type': 'application/json'
         }});
     }
-    static updateTechnology(data,id){
-        let dataURL = `${this.serverURL}/technology/${id}`;
+    static update(data,id){
+        let dataURL = `${this.serverURL}/assets/${id}`;
         return axios.put(dataURL,data,{headers: {
             'Content-Type': 'application/json'
         }});
     }
-    static deleteTechnology(id){
-        let dataURL = `${this.serverURL}/technology/${id}`;
+    static delete(id){
+        let dataURL = `${this.serverURL}/assets/${id}`;
         return axios.delete(dataURL,{headers: {
             'Content-Type': 'application/json'
         }});
