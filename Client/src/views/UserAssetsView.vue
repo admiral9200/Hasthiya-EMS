@@ -1,4 +1,7 @@
 <template>
+    <h2 class="my-6 mx-7 text-left text-3xl font-bold tracking-tight text-gray-900">
+        Assets :
+    </h2>
     <!-- assets list -->
     <div class=" bg-slate-200 mx-4 rounded-lg shadow-sm mb-10">
         <table class=" w-full overflow-scroll">

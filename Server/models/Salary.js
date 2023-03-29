@@ -16,6 +16,10 @@ const Schema = new mongoose.Schema({
     salaryDate:{
         type: Date,
         required: [true, "Leave From cannot be empty"],
+    },    
+    designation:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Designation'
     },
 },{ timestamps: true });
 

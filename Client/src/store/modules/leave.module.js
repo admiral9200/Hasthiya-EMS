@@ -1,128 +1,128 @@
-import { AssetsService } from "@/services/AssetsService";
+import { LeaveService } from "@/services/LeaveService";
 import { NotificationHelper } from "@/helper/NotificationHelper";
 import store from "..";
 
 // initial state
 const state = () => ({
-    assetList: {
-        assets: [],
+    leaveList: {
+        leaves: [],
         isLoading: false,
-        asset: null,
+        leave: null,
         totalPages: 0,
-        assetCount:0,
+        leaveCount:0,
     },
 })
 
 // getters
 const getters = {
-    getAssetState: function (state) {
-        return state.assetList;
+    getLeaveState: function (state) {
+        return state.leaveList;
     }
 }
 
 // mutations
 const mutations = {
     SET_LOADING: function (state, payload) {
-        state.assetList.isLoading = payload;
+        state.leaveList.isLoading = payload;
     },
-    SET_ASSETS: function (state, payload) {
-        state.assetList.assets = payload.assets;
-        state.assetList.totalPages = payload.totalPages;        
-        state.assetList.assetCount = payload.assetCount;
+    SET_LEAVES: function (state, payload) {
+        state.leaveList.leaves = payload.leaves;
+        state.leaveList.totalPages = payload.totalPages;        
+        state.leaveList.leaveCount = payload.leaveCount;
     },
-    SET_ASSET: function (state, payload) {
-        state.assetList.asset = payload.asset;
+    SET_LEAVE: function (state, payload) {
+        state.leaveList.leave = payload.leave;
     },
 }
 
 // actions
 const actions = {
-    getAllAssets: async function ({ commit }, payload) {
+    getAllLeaves: async function ({ commit }, payload) {
         try {
             commit("SET_LOADING", true);
-            let response = await AssetsService.getAll(payload);
+            let response = await LeaveService.getAll(payload);
             if (response.data.status == 200) {
-                console.log("assets"+response.data.data.docs)
+                console.log("leaves"+response.data.data.docs)
             } else {
                 NotificationHelper.errorhandler(response.data.msg)
             }
-            commit("SET_ASSETS", { assets: response.data.data.docs, totalPages: response.data.data.totalPages,assetCount:response.data.data.assetsCount });
+            commit("SET_LEAVES", { leaves: response.data.data.docs, totalPages: response.data.data.totalPages,leaveCount:response.data.data.leavesCount });
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
             commit("SET_LOADING", false);
         }
     },
-    getAllAssetsByType: async function ({ commit }, payload) {
+    getAllLeavesByEmployee: async function ({ commit }, payload) {
         try {
             commit("SET_LOADING", true);
-            let response = await AssetsService.getByType(payload.id, payload.page);
-            if (response.data.status == 200) {
-                console.log(response.data.data.docs)
-            } else {
-                NotificationHelper.errorhandler(response.data.msg)
-            }
-            commit("SET_ASSETS", { assets: response.data.data.docs, totalPages: response.data.data.totalPages });
-            commit("SET_LOADING", false);
-        } catch (error) {
-            NotificationHelper.errorhandler(error)
-            commit("SET_LOADING", false);
-        }
-    },
-    getAllAssetsByUser: async function ({ commit }, payload) {
-        try {
-            commit("SET_LOADING", true);
-            let response = await AssetsService.getByAssignPerson(payload);
+            let response = await LeaveService.getAllByEmployee(payload.id, payload.page);
             if (response.data.status == 200) {
                 console.log(response.data.data.docs)
             } else {
                 NotificationHelper.errorhandler(response.data.msg)
             }
-            commit("SET_ASSETS", { assets: response.data.data.docs, totalPages: response.data.data.totalPages });
+            commit("SET_LEAVES", { leaves: response.data.data.docs, totalPages: response.data.data.totalPages });
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
             commit("SET_LOADING", false);
         }
     },
-    deleteAsset: async function ({ commit }, id) {
+    getAllLeavesByReportPerson: async function ({ commit }, payload) {
         try {
             commit("SET_LOADING", true);
-            await AssetsService.delete(id);
-            store.dispatch('getAllAssets')
-            NotificationHelper.notificationhandler("Asset deleted successfully!")
+            let response = await LeaveService.getAllByReportPerson(payload.id, payload.page);
+            if (response.data.status == 200) {
+                console.log(response.data.data.docs)
+            } else {
+                NotificationHelper.errorhandler(response.data.msg)
+            }
+            commit("SET_LEAVES", { leaves: response.data.data.docs, totalPages: response.data.data.totalPages });
+            commit("SET_LOADING", false);
+        } catch (error) {
+            NotificationHelper.errorhandler(error)
+            commit("SET_LOADING", false);
+        }
+    },
+    deleteLeave: async function ({ commit }, id) {
+        try {
+            commit("SET_LOADING", true);
+            await LeaveService.delete(id);
+            store.dispatch('getAllLeaves')
+            NotificationHelper.notificationhandler("Leave deleted successfully!")
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
         }
     },
-    updateAsset: async function ({ commit }, asset) {
+    updateLeave: async function ({ commit }, leave) {
         try {
             commit("SET_LOADING", true);
-            await AssetsService.update(asset, asset._id);
-            store.dispatch('getAllAssets')
-            NotificationHelper.notificationhandler("Asset updated successfully!")
+            await LeaveService.update(leave, leave._id);
+            store.dispatch('getAllLeaves')
+            NotificationHelper.notificationhandler("Leave updated successfully!")
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
         }
     },
-    getAssetById: async function ({ commit }, id) {
+    getLeaveById: async function ({ commit }, id) {
         try {
             commit("SET_LOADING", true);
-            let response = await AssetsService.getById(id);
-            commit("SET_ASSET", { asset: response.data.data })
+            let response = await LeaveService.getById(id);
+            commit("SET_LEAVE", { leave: response.data.data })
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
         }
     },    
-    createAsset:async function({commit},data){
+    createLeave:async function({commit},data){
         try {
             commit("SET_LOADING", true);
-            await AssetsService.create(data);
-            NotificationHelper.notificationhandler('asset created successfully!')
-            store.dispatch('getAllAssets')
+            await LeaveService.create(data);
+            NotificationHelper.notificationhandler('leave created successfully!')
+            store.dispatch('getAllLeaves')
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)

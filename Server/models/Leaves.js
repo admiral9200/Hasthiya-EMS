@@ -9,7 +9,7 @@ const Schema = new mongoose.Schema({
         type: String,        
         required: [true, "Reason cannot be empty"],
     },
-    Type: {
+    isMedical: {
         type: Boolean,
         required: [true, "Leave type cannot be empty"],
     },
@@ -18,12 +18,8 @@ const Schema = new mongoose.Schema({
         ref: 'User'
     },
     status: {
-        type: Boolean,
-        default: false,
-    },
-    canceled: {
-        type: Boolean,
-        default: false,
+        type: String,
+        default: "Pending",
     },
     leaveFrom:{
         type: Date,

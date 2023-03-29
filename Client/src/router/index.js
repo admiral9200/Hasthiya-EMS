@@ -34,6 +34,12 @@ const routes = [
     meta:{auth:true,admin:true}
   },
   {
+    path: '/salary',
+    name: 'salary',
+    component: () => import('../views/SalaryAdminView.vue'),
+    meta:{auth:true,admin:true}
+  },
+  {
     path: '/technology',
     name: 'technology',
     component: () => import('../views/TechnologyView.vue'),
@@ -55,6 +61,18 @@ const routes = [
     path: '/userAssets',
     name: 'userAssets',
     component: () => import('../views/UserAssetsView.vue'),
+    meta:{auth:true}
+  },
+  {
+    path: '/userLeaves',
+    name: 'userLeaves',
+    component: () => import('../views/UserLeavesView.vue'),
+    meta:{auth:true}
+  },
+  {
+    path: '/userSalary',
+    name: 'userSalary',
+    component: () => import('../views/UserSalaryView.vue'),
     meta:{auth:true}
   },
   {
