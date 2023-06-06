@@ -39,6 +39,7 @@ export default {
     userState: "getUserState",
   }),
   created: function () {
+    this.reload()
     this.$watch(
       () => this.$route.query,
       () => {
@@ -52,7 +53,13 @@ export default {
     getPage(page) {
       this.page = page
       this.$router.push({ name: "home", query: { page: page } })
+    },
+    reload () {
+    if(!window.location.hash) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
     }
+}
   },
   components: {
     PaginationComponent,
