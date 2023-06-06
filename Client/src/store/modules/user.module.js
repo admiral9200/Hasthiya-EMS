@@ -137,6 +137,7 @@ const actions = {
             commit("SET_LOADING", true);
             await UserService.updateUser(data, data._id);
             NotificationHelper.notificationhandler("User updated successfully!")
+            store.dispatch('getAllUsersForAdmin')
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
