@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-
 //Imports
 const technology = require('../models/Technology')
 const ResponseService = require("../utils/RresponseService"); // Response service
