@@ -5,7 +5,6 @@ import {serverURL} from "../constants/Constants";
 axios.interceptors.request.use(req => {
         let accessToken = store.getters.getUserState.token;
         req.headers.Authorization = `Bearer ${accessToken}`;
-    console.log('INTERCEPTED');
     return req;
 },
 (error) => {
