@@ -52,7 +52,7 @@ const actions = {
         try {
             await DesignationService.delete(id);
             NotificationHelper.notificationhandler('designation deleted successfully!')
-            store.dispatch("getAll")
+            store.dispatch("getAllDesignations")
         } catch (error) {
             console.log(error)
             commit("SET_ERROR", { error: error })
