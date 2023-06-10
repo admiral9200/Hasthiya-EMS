@@ -1,5 +1,7 @@
 <template>
-    <h1>user admin page</h1>
+    <h2 class="my-6 mx-7 text-left text-3xl font-bold tracking-tight text-gray-900">
+        Users :
+    </h2>
     <div class=" bg-slate-200 mx-7 rounded-lg shadow-sm mb-10">
         <table class=" w-full overflow-scroll">
             <thead>
@@ -28,7 +30,7 @@
 
     <!-- user edit sec -->
     <div id="popup-modal" v-if="popup"
-        class="fixed top-0 left-0 right-0 bottom-0 z-50  p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full justify-center"
+        class="flex fixed top-0 left-0 right-0 bottom-0 z-50  p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full justify-center"
         style="background-color:rgba(0, 0, 0, 0.400)">
         <div class="relative bg-white rounded-lg shadow self-center px-20  max-w-md m-auto">
             <button type="button" @click="closePopup()"
@@ -55,7 +57,7 @@
                         class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm mb-2" />
                 </div>
                 <div class="">
-                    <input id="name" name="name" type="name" v-model="updateUser.salary" autocomplete="salary" required
+                    <input id="salary" name="salary" type="number" v-model="updateUser.salary" min="0" required
                         placeholder="Salary"
                         class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm mb-2" />
                 </div>
@@ -136,12 +138,12 @@ export default {
         },
         openPopup(id) {
             this.$store.dispatch("getUserById", id);
-            this.delay(400).then(() => this.setdata());
+            this.delay(1000).then(() => this.setdata());
         },
         closePopup() {
             this.popup = false;
         },
-        setdata() {            
+        setdata() {
             this.popup = !this.popup;
             this.updateUser._id = this.userState.otherUser._id;
             this.updateUser.email = this.userState.otherUser.email;
@@ -152,12 +154,13 @@ export default {
                 this.updateUser.designation = this.userState.otherUser.designation._id;
             }
             if (this.userState.otherUser.reportPerson) {
-                this.updateUser.reportPerson = this.userState.otherUser.reportPerson;
+                this.updateUser.reportPerson = this.userState.otherUser.reportPerson._id;
             }
         },
     },
     created() {
         this.$store.dispatch('getAllUsersForAdmin')
+        this.$store.dispatch("getAllDesignations");
     }
 }
 </script>
