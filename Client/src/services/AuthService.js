@@ -15,5 +15,13 @@ export class AuthService{
         let dataURL = `${serverURL}/auth/signup`;
         return axios.post(dataURL,data);
     }
+    static forgetPasswordEmail(data){
+        let dataURL = `${serverURL}/auth/forgetpassword/mail`;
+        return axios.post(dataURL,data);
+    }
+    static forgetPassword(id,data){
+        let dataURL = `${serverURL}/auth/forgetpassword/password/${id}`;
+        return axios.put(dataURL,data);
+    }
    
 }
