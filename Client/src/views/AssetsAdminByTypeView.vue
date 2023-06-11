@@ -52,16 +52,15 @@
          this.$watch(
              () => this.$route.query,
              () => {
-                 this.$store.dispatch("getAllAssets", this.$route.query.page);
-                 console.log("query", this.$route.query.page)
+                 this.$store.dispatch("getAllAssetsByType", { id: this.$route.params.id, page: this.$route.query.page });
              },
          ),
-             this.$store.dispatch("getAllAssets", this.$route.query.page);
+             this.$store.dispatch("getAllAssetsByType", { id: this.$route.params.id, page: this.$route.query.page });
      },
      methods: {
          getPage(page) {
              this.page = page
-             this.$router.push({ name: "assets", query: { page: page } })
+             this.$router.push({ name: "assetsByType",params: { id:this.$route.params.id }, query: { page: page } })
          }
      },
      components: {

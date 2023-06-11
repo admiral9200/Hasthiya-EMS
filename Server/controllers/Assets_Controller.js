@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-
 //Imports
 const assets = require('../models/Assets')
 const ResponseService = require("../utils/RresponseService"); // Response service
