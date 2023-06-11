@@ -37,7 +37,8 @@
                         <select name="" id="" v-model="asset.assignPerson"
                             class="relative block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm mb-2">
                             <option value="">Select assignee</option>
-                            <option :value="user._id" v-bind:key="user._id" v-for="user in userState.users">{{ user.name }}
+                            <option :value="user._id" v-bind:key="user._id" v-for="user in filteruser(userState.users)">{{
+                                user.name }}
                             </option>
                         </select>
                     </div>
@@ -114,6 +115,12 @@ export default {
                 return moment(String(value)).format('YYYY-MM-DD')
             }
         },
+        filteruser(users) {
+            const filteredUsers = users.filter(function (user) {
+                return user.role !== "pending";
+            });
+            return filteredUsers;
+        }
     },
 }
 </script>
