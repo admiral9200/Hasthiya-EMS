@@ -38,7 +38,7 @@ const actions = {
     getAllSalary: async function ({ commit }, payload) {
         try {
             commit("SET_LOADING", true);
-            let response = await SalaryService.getAll(payload);
+            let response = await SalaryService.getAll(payload.page);
             if (response.data.status == 200) {
                 console.log("salaries"+response.data.data.docs)
             } else {
@@ -54,7 +54,7 @@ const actions = {
     getAllSalaryByDate: async function ({ commit }, payload) {
         try {
             commit("SET_LOADING", true);
-            let response = await SalaryService.getByDate(payload.id, payload.page);
+            let response = await SalaryService.getByDate(payload);
             if (response.data.status == 200) {
                 console.log(response.data.data.docs)
             } else {
@@ -83,29 +83,29 @@ const actions = {
             commit("SET_LOADING", false);
         }
     },
-    deleteAsset: async function ({ commit }, id) {
+    deleteSalary: async function ({ commit }, id) {
         try {
             commit("SET_LOADING", true);
             await SalaryService.delete(id);
             store.dispatch('getAllSalary')
-            NotificationHelper.notificationhandler("Asset deleted successfully!")
+            NotificationHelper.notificationhandler("Salary deleted successfully!")
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
         }
     },
-    updateAsset: async function ({ commit }, salary) {
+    updateSalary: async function ({ commit }, salary) {
         try {
             commit("SET_LOADING", true);
             await SalaryService.update(salary, salary._id);
             store.dispatch('getAllSalary')
-            NotificationHelper.notificationhandler("Asset updated successfully!")
+            NotificationHelper.notificationhandler("Salary updated successfully!")
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
         }
     },
-    getAssetById: async function ({ commit }, id) {
+    getSalaryById: async function ({ commit }, id) {
         try {
             commit("SET_LOADING", true);
             let response = await SalaryService.getById(id);
@@ -115,12 +115,11 @@ const actions = {
             NotificationHelper.errorhandler(error)
         }
     },    
-    createAsset:async function({commit},data){
+    createSalary:async function({commit},data){
         try {
             commit("SET_LOADING", true);
             await SalaryService.create(data);
             NotificationHelper.notificationhandler('salary created successfully!')
-            store.dispatch('getAllSalary')
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)

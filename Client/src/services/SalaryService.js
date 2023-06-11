@@ -5,7 +5,6 @@ import {serverURL} from "../constants/Constants";
 axios.interceptors.request.use(req => {
         let accessToken = store.getters.getUserState.token;
         req.headers.Authorization = `Bearer ${accessToken}`;
-    console.log('INTERCEPTED');
     return req;
 },
 (error) => {
@@ -33,8 +32,8 @@ export class SalaryService{
             'Content-Type': 'application/json'
         }});
     }
-    static getByDate(date){
-        let dataURL = `${serverURL}/salary/date/${date}`;
+    static getByDate(data){
+        let dataURL = `${serverURL}/salary/date/${data.date}?page=${data.page}`;
         return axios.get(dataURL,{headers: {
             'Content-Type': 'application/json'
         }});
