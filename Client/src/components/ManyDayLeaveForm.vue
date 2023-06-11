@@ -3,7 +3,7 @@
       <form class="mt-8 space-y-6" @submit.prevent="submit" method="POST">
           <div>
               <h2 class="text-center text-2xl font-bold tracking-tight text-gray-900 ">
-                  One day Leave
+                  Many day Leave
               </h2>
           </div>
           <div class="-space-y-px rounded-md shadow-sm">

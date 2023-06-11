@@ -1,84 +1,82 @@
-import { AssetsService } from "@/services/AssetsService";
+import { SalaryService } from "@/services/SalaryService";
 import { NotificationHelper } from "@/helper/NotificationHelper";
 import store from "..";
 
 // initial state
 const state = () => ({
-    assetList: {
-        assets: [],
+    salaryList: {
+        salaries: [],
         isLoading: false,
-        asset: null,
+        salary: null,
         totalPages: 0,
-        assetCount:0,
     },
 })
 
 // getters
 const getters = {
-    getAssetState: function (state) {
-        return state.assetList;
+    getSalaryState: function (state) {
+        return state.salaryList;
     }
 }
 
 // mutations
 const mutations = {
     SET_LOADING: function (state, payload) {
-        state.assetList.isLoading = payload;
+        state.salaryList.isLoading = payload;
     },
-    SET_ASSETS: function (state, payload) {
-        state.assetList.assets = payload.assets;
-        state.assetList.totalPages = payload.totalPages;        
-        state.assetList.assetCount = payload.assetCount;
+   SET_SALARIES: function (state, payload) {
+        state.salaryList.salaries = payload.salaries;
+        state.salaryList.totalPages = payload.totalPages;    
     },
-    SET_ASSET: function (state, payload) {
-        state.assetList.asset = payload.asset;
+    SET_SALARY: function (state, payload) {
+        state.salaryList.salary = payload.salary;
     },
 }
 
 // actions
 const actions = {
-    getAllAssets: async function ({ commit }, payload) {
+    getAllSalary: async function ({ commit }, payload) {
         try {
             commit("SET_LOADING", true);
-            let response = await AssetsService.getAll(payload);
+            let response = await SalaryService.getAll(payload);
             if (response.data.status == 200) {
-                console.log("assets"+response.data.data.docs)
+                console.log("salaries"+response.data.data.docs)
             } else {
                 NotificationHelper.errorhandler(response.data.msg)
             }
-            commit("SET_ASSETS", { assets: response.data.data.docs, totalPages: response.data.data.totalPages,assetCount:response.data.data.assetsCount });
+            commit("SET_SALARIES", { salaries: response.data.data.docs, totalPages: response.data.data.totalPages});
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
             commit("SET_LOADING", false);
         }
     },
-    getAllAssetsByType: async function ({ commit }, payload) {
+    getAllSalaryByDate: async function ({ commit }, payload) {
         try {
             commit("SET_LOADING", true);
-            let response = await AssetsService.getByType(payload.id, payload.page);
+            let response = await SalaryService.getByDate(payload.id, payload.page);
             if (response.data.status == 200) {
                 console.log(response.data.data.docs)
             } else {
                 NotificationHelper.errorhandler(response.data.msg)
             }
-            commit("SET_ASSETS", { assets: response.data.data.docs, totalPages: response.data.data.totalPages });
+            commit("SET_SALARIES", { salaries: response.data.data.docs, totalPages: response.data.data.totalPages });
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
             commit("SET_LOADING", false);
         }
     },
-    getAllAssetsByUser: async function ({ commit }, payload) {
+    getAllSalaryByUser: async function ({ commit }, payload) {
         try {
             commit("SET_LOADING", true);
-            let response = await AssetsService.getByAssignPerson(payload);
+            let response = await SalaryService.getByAssignPerson(payload);
             if (response.data.status == 200) {
                 console.log(response.data.data.docs)
             } else {
                 NotificationHelper.errorhandler(response.data.msg)
             }
-            commit("SET_ASSETS", { assets: response.data.data.docs, totalPages: response.data.data.totalPages });
+            commit("SET_SALARIES", { salaries: response.data.data.docs, totalPages: response.data.data.totalPages });
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
@@ -88,19 +86,19 @@ const actions = {
     deleteAsset: async function ({ commit }, id) {
         try {
             commit("SET_LOADING", true);
-            await AssetsService.delete(id);
-            store.dispatch('getAllAssets')
+            await SalaryService.delete(id);
+            store.dispatch('getAllSalary')
             NotificationHelper.notificationhandler("Asset deleted successfully!")
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
         }
     },
-    updateAsset: async function ({ commit }, asset) {
+    updateAsset: async function ({ commit }, salary) {
         try {
             commit("SET_LOADING", true);
-            await AssetsService.update(asset, asset._id);
-            store.dispatch('getAllAssets')
+            await SalaryService.update(salary, salary._id);
+            store.dispatch('getAllSalary')
             NotificationHelper.notificationhandler("Asset updated successfully!")
             commit("SET_LOADING", false);
         } catch (error) {
@@ -110,8 +108,8 @@ const actions = {
     getAssetById: async function ({ commit }, id) {
         try {
             commit("SET_LOADING", true);
-            let response = await AssetsService.getById(id);
-            commit("SET_ASSET", { asset: response.data.data })
+            let response = await SalaryService.getById(id);
+            commit("SET_SALARY", { salary: response.data.data })
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
@@ -120,9 +118,9 @@ const actions = {
     createAsset:async function({commit},data){
         try {
             commit("SET_LOADING", true);
-            await AssetsService.create(data);
-            NotificationHelper.notificationhandler('asset created successfully!')
-            store.dispatch('getAllAssets')
+            await SalaryService.create(data);
+            NotificationHelper.notificationhandler('salary created successfully!')
+            store.dispatch('getAllSalary')
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)

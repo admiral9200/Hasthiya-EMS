@@ -62,8 +62,8 @@ export default {
   data() {
     return {
       user: {
-        email: "janithherath@gmail.com",
-        password: "1234",
+        email: "",
+        password: "",
       },
     };
   },

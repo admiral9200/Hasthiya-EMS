@@ -1,4 +1,7 @@
 <template>
+    <h2 class="my-6 mx-7 text-left text-3xl font-bold tracking-tight text-gray-900">
+        Technologies :
+    </h2>
     <!--form -->
     <div class="mx-4 mt-3 pb-7">
         <form @submit.prevent="submit" method="POST">
@@ -122,6 +125,9 @@ export default {
         closePopup() {
             this.popup = false;
         }
+    },
+    created(){
+        this.$store.dispatch("getAllTechnology");
     }
 }
 </script>

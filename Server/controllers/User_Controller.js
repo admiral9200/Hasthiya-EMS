@@ -30,7 +30,7 @@ exports.delete=(async(req, res) => {
 //get all
 exports.getAll=(async(req, res) => {
   // Pagination parameters
-  const limit = req.query.limit ? parseInt(req.query.limit) : 1;
+  const limit = req.query.limit ? parseInt(req.query.limit) : 10;
   const page = req.query.page ? parseInt(req.query.page) - 1 : 0;
 
 
@@ -111,14 +111,15 @@ exports.getAllByTechnology = async function (req, res) {
 }
 
 // search user by name
-exports.searchAllByName = async function (req, res) {
+exports.searchAllByName = async function (req, res) {  
+  const searchTerm = req.params.searchTerm;
+
   const limit = req.query.limit ? parseInt(req.query.limit) : 10;
   const page = req.query.page ? parseInt(req.query.page) : 0;
 
   
   const totalPages = Math.ceil(await users.countDocuments({ name: { $regex: searchTerm, $options: 'i' } }) / limit);
 
-  const searchTerm = req.params.searchTerm;
   users.find({ name: { $regex: searchTerm, $options: 'i' } }, (err, doc) => {
     const newPayload = {
       docs: doc,

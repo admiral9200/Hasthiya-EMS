@@ -1,19 +1,18 @@
 import axios from "axios";
-
+import {serverURL} from "../constants/Constants";
 export class AuthService{
-    static serverURL = 'http://localhost:5000';
 
     
     static getUserDetails(data){
-        let dataURL = `${this.serverURL}/auth/details`;
+        let dataURL = `${serverURL}/auth/details`;
         return axios.post(dataURL,data);
     }
     static login(data){
-        let dataURL = `${this.serverURL}/auth/login`;
+        let dataURL = `${serverURL}/auth/login`;
         return axios.post(dataURL,data);
     }
     static signup(data){
-        let dataURL = `${this.serverURL}/auth/signup`;
+        let dataURL = `${serverURL}/auth/signup`;
         return axios.post(dataURL,data);
     }
    
