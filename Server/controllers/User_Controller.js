@@ -11,6 +11,33 @@ exports.updatePassword = (async (req, res) => {
   const encryptedPassword = await bcrypt.hash(newpassword, 10);
 
   if (await bcrypt.compare(password, user.password)) {
+
+    if (newpassword.length < 8) {
+      return res.json({ status: 422, msg: "Password should consist at least 8 characters including letters and numbers!" });
+    }
+    
+    // Check if password contains at least one letter and one number
+    var hasLetter = false;
+    var hasNumber = false;
+    for (var i = 0; i < newpassword.length; i++) {
+      var char = newpassword[i];
+      
+      if (/[a-zA-Z]/.test(char)) {
+        hasLetter = true;
+      } else if (/[0-9]/.test(char)) {
+        hasNumber = true;
+      }
+      
+      // If both letter and number are found, return true
+      if (hasLetter && hasNumber) {
+        return true;
+      }
+    }
+  
+    if (!(hasLetter && hasNumber)) {
+      return res.json({ status: 422, msg: "Password should consist at least 8 characters including letters and numbers!" });
+    }
+
     let newuser = { password: encryptedPassword }
     users.findByIdAndUpdate(req.params.id, newuser, (err, doc) => {
       ResponseService.generalPayloadResponse(err, doc, res, "password updated successfully");
