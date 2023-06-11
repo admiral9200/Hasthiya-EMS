@@ -8,7 +8,7 @@ exports.create = (async (req, res) => {
     const usDollerValue = req.body.usDollerValue;
     const salaryDate = req.body.salaryDate;
 
-    const users = await user.find();
+    const users = await user.find({role:{ $ne: 'pending' }});
     users.forEach(async (user) => {
         const basic = user.salary;
         const employee = user._id;
