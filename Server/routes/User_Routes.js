@@ -10,6 +10,9 @@ const userController = require('../controllers/User_Controller')
 // Update
 router.put("/:id", async (req, res) => userController.update(req, res));
 
+// Update
+router.put("/password/:id", async (req, res) => userController.updatePassword(req, res));
+
 // Delete
 router.put("/delete/:id",CheckAuth, async (req, res) =>userController.delete(req, res));
 

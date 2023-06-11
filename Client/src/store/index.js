@@ -1,4 +1,5 @@
 import { createStore, createLogger } from 'vuex'
+import createPersistedState from "vuex-persistedstate";
 import userModule from './modules/user.module'
 import designationModule from './modules/designation.module'
 import technologyModule from './modules/technology.module'
@@ -9,6 +10,9 @@ import leaveModule from './modules/leave.module'
 
 const debug = process.env.NODE_ENV !== 'production'
 
+const dataState = createPersistedState({
+  paths: ['userList']
+})
 
 export default createStore({
   modules: {
@@ -21,5 +25,5 @@ export default createStore({
     leaveModule,
   },
   strict: debug,
-  plugins: debug ? [createLogger()] : []
+  plugins:  debug ?  [dataState][createLogger()] : [] [dataState],
 })

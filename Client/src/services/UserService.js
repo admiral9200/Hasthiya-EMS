@@ -1,6 +1,15 @@
 import  axios  from "axios";
+import store from "../store/index";
 import {serverURL} from "../constants/Constants";
 
+axios.interceptors.request.use(req => {
+    let accessToken = store.getters.getUserState.token;
+    req.headers.Authorization = `Bearer ${accessToken}`;
+return req;
+},
+(error) => {
+return Promise.reject(error);
+});
 export class UserService{
 
     static getAllUsers(page){
@@ -41,6 +50,12 @@ export class UserService{
     }
     static updateUser(user,userId){
         let dataURL = `${serverURL}/users/${userId}`;
+        return axios.put(dataURL,user,{headers: {
+            'Content-Type': 'application/json'
+        }});
+    }
+    static updateUserPassword(user,userId){
+        let dataURL = `${serverURL}/users/password/${userId}`;
         return axios.put(dataURL,user,{headers: {
             'Content-Type': 'application/json'
         }});
