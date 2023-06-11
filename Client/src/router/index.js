@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import store from '../store/index'
 
 const routes = [
   {
@@ -153,7 +152,7 @@ router.beforeEach((to,from,next)=>{
     next('/signin')
   }else if(!to.meta.auth && localStorage.getItem('token')){
     next('/')
-  }else if(to.meta.admin && store.getters.getUserState.user.role !='admin'){
+  }else if(to.meta.admin && localStorage.getItem('role') !='admin'){
     next('/')
   }else{
     next();
