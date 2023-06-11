@@ -61,7 +61,7 @@ exports.getByReportPersonId = async function (req, res) {
     const id = req.params.id;
 
     // Pagination parameters
-    const limit = req.query.limit ? parseInt(req.query.limit) : 10;
+    const limit = req.query.limit ? parseInt(req.query.limit) : 10;   //number of raws per page
     const page = req.query.page ? parseInt(req.query.page) - 1 : 0;
 
 
