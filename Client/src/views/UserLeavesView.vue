@@ -23,11 +23,7 @@
         <!-- pagination -->
         <PaginationComponent :getPage="getPage" :totalPages="leaveState.totalPages" />
     </div>
-
-
-
-
-
+    
     <!-- Request Leave-->
     <div id="popup-modal" v-if="popup"
         class="flex fixed top-0 left-0 right-0 z-50  p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full justify-center"
@@ -95,7 +91,7 @@ export default {
             () => this.$route.query,
             () => {
                 console.log(this.$route.query.userleaves)
-                if(this.$route.query.userleaves){
+                if(this.$route.query.userleaves == 'true'){
                 this.$store.dispatch("getAllLeavesByReportPerson", { page: this.$route.query.page, id: localStorage.getItem('userID') });
                 }else{
                 this.$store.dispatch("getAllLeavesByEmployee", { page: this.$route.query.page, id: localStorage.getItem('userID') });
@@ -103,7 +99,7 @@ export default {
             },
             () => this.$route.userleaves,
             () => {
-                if(this.$route.query.userleaves){
+                if(this.$route.query.userleaves == 'true'){
                 this.$store.dispatch("getAllLeavesByReportPerson", { page: this.$route.query.page, id: localStorage.getItem('userID') });
                 }else{
                 this.$store.dispatch("getAllLeavesByEmployee", { page: this.$route.query.page, id: localStorage.getItem('userID') });
