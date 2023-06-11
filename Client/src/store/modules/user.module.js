@@ -158,8 +158,13 @@ const actions = {
     updateLoggedUserPassword: async function ({ commit }, data) {
         try {
             commit("SET_LOADING", true);
-            await UserService.updateUserPassword(data, data._id);
+            const response = await UserService.updateUserPassword(data, data._id);
+            if (response.data.status == 200) {
             NotificationHelper.notificationhandler("Password updated successfully!")
+                commit("SET_LOADING", false);
+            } else {
+                NotificationHelper.errorhandler(response.data.msg)
+            }
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
@@ -179,7 +184,6 @@ const actions = {
         try {
             commit("SET_LOADING", true);
             const response = await AuthService.signup(user);
-            console.log(response)
             if (response.data.status == 200) {
                 NotificationHelper.notificationhandler("User registered successfully!")
                 commit("SET_LOADING", false);
@@ -218,6 +222,7 @@ const actions = {
             let response = await AuthService.getUserDetails(token);
             commit("SET_LOGGED_USER", { user: response.data.data })
             localStorage.setItem("userID", response.data.data._id);
+            localStorage.setItem("role", response.data.data.role);
             NotificationHelper.notificationhandler("Successfully login in!")
             return router.push("/");
         } catch (error) {
