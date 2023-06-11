@@ -100,7 +100,6 @@ const actions = {
         try {
             commit("SET_LOADING", true);
             await LeaveService.update(leave, leave._id);
-            store.dispatch('getAllLeaves')
             NotificationHelper.notificationhandler("Leave updated successfully!")
             commit("SET_LOADING", false);
         } catch (error) {
