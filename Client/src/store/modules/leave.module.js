@@ -121,7 +121,6 @@ const actions = {
             commit("SET_LOADING", true);
             await LeaveService.create(data);
             NotificationHelper.notificationhandler('leave created successfully!')
-            store.dispatch('getAllLeaves')
             commit("SET_LOADING", false);
         } catch (error) {
             NotificationHelper.errorhandler(error)
