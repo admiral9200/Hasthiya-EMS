@@ -23,7 +23,8 @@
     "vue-router": "^4.1.6",
     "vue2-editor": "^2.10.3",
     "vue3-popper": "^1.5.0",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.0",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
