@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-
 //Imports
 const designation = require('../models/Designation')
 const ResponseService = require("../utils/RresponseService"); // Response service

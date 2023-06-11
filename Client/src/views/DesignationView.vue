@@ -47,7 +47,7 @@
 
     <!-- designation edit sec -->
     <div id="popup-modal" v-if="popup"
-        class="fixed top-0 left-0 right-0 z-50  p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full justify-center"
+        class="flex fixed top-0 left-0 right-0 z-50  p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full justify-center"
         style="background-color:rgba(0, 0, 0, 0.400)">
         <div class="relative bg-white rounded-lg shadow self-center px-20  max-w-md m-auto">
             <button type="button" @click="closePopup()"
