@@ -164,7 +164,6 @@ exports.getForgetPasswordMail = async (req, res) => {
 exports.setForgetPassword = (async (req, res) => {
 
   const { password } = req.body;
-
   if (password.length < 8) {
     return res.json({ status: 422, msg: "Password should consist at least 8 characters including letters and numbers!" });
   }
@@ -180,11 +179,7 @@ exports.setForgetPassword = (async (req, res) => {
     } else if (/[0-9]/.test(char)) {
       hasNumber = true;
     }
-    
-    // If both letter and number are found, return true
-    if (hasLetter && hasNumber) {
-      return true;
-    }
+
   }
 
   if (!(hasLetter && hasNumber)) {
