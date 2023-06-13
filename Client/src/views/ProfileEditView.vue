@@ -76,6 +76,7 @@ export default {
     }),
     created() {
         this.setdata();
+        this.$store.dispatch("getAllTechnology")
     },
     data() {
         return {
