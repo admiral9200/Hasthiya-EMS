@@ -8,30 +8,30 @@ const CheckAuth = require('../middleware/AuthMiddleware')
 const userController = require('../controllers/User_Controller')
 
 // Update
-router.put("/:id", async (req, res) => userController.update(req, res));
+router.put("/:id",CheckAuth, async (req, res) => userController.update(req, res));
 
 // Update
-router.put("/password/:id", async (req, res) => userController.updatePassword(req, res));
+router.put("/password/:id",CheckAuth, async (req, res) => userController.updatePassword(req, res));
 
 // Delete
 router.put("/delete/:id",CheckAuth, async (req, res) =>userController.delete(req, res));
 
 // Get by id
-router.get("/:id", async (req, res) => userController.getById(req, res));
+router.get("/:id",CheckAuth, async (req, res) => userController.getById(req, res));
 
 // Get all
-router.get("/", async (req, res) => userController.getAll(req, res));
+router.get("/",CheckAuth, async (req, res) => userController.getAll(req, res));
 
 // Get all for admin
-router.get("/admin/admin", async (req, res) => userController.getAllForAdmin(req, res));
+router.get("/admin/admin",CheckAuth, async (req, res) => userController.getAllForAdmin(req, res));
 
 // Get all by designation
-router.get("/designation/:designation", async (req, res) => userController.getAllByDesignation(req, res));
+router.get("/designation/:designation",CheckAuth, async (req, res) => userController.getAllByDesignation(req, res));
 
 // Get all by technology
-router.get("/technology/:technology", async (req, res) => userController.getAllByTechnology(req, res));
+router.get("/technology/:technology",CheckAuth, async (req, res) => userController.getAllByTechnology(req, res));
 
 // search user by name
-router.get('/searchTerm/:searchTerm', userController.searchAllByName);
+router.get('/searchTerm/:searchTerm',CheckAuth, userController.searchAllByName);
 
 module.exports = router;

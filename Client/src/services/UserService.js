@@ -1,15 +1,15 @@
 import  axios  from "axios";
-import store from "../store/index";
 import {serverURL} from "../constants/Constants";
 
 axios.interceptors.request.use(req => {
-    let accessToken = store.getters.getUserState.token;
-    req.headers.Authorization = `Bearer ${accessToken}`;
-return req;
+        let accessToken = localStorage.getItem('token')
+        req.headers.Authorization = `Bearer ${accessToken}`;
+    return req;
 },
 (error) => {
-return Promise.reject(error);
+  return Promise.reject(error);
 });
+
 export class UserService{
 
     static getAllUsers(page){
