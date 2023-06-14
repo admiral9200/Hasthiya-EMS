@@ -1,9 +1,8 @@
 import  axios  from "axios";
-import store from "../store/index";
 import {serverURL} from "../constants/Constants";
 
 axios.interceptors.request.use(req => {
-        let accessToken = store.getters.getUserState.token;
+        let accessToken = localStorage.getItem('token')
         req.headers.Authorization = `Bearer ${accessToken}`;
     return req;
 },
